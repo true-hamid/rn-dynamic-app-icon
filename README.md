@@ -28,10 +28,11 @@ cd ios && pod install
 ## Setup
 **1. Android**
 1. Add all the icons you need inside your project's `android/app/src/main/res/mipmap-*` directories:
-Example: 
+
 ![Android Project sample](images/Android_Project.png)
+
 2. Add the alternate icons in the **AndroidManifest.xml** file:
-Example
+
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.example.rndynamicappicon">
@@ -108,53 +109,57 @@ Example
   </application>
 </manifest>
 ```
-The main point is to create <activity-alias> tags to make more alternate icons. While the tag name should be your applications initial Activity name suffixed by you icon definition name example: .MainActivityAU
-**NOTE: Default icon will have the initial Activity's name, example: .MainActivity**
+The main point is to create <activity-alias> tags to make more alternate icons. While the tag name should be your applications initial Activity name suffixed by you icon definition name example: .MainActivityAU **NOTE: Default icon will have the initial Activity's name, example: .MainActivity**
 ---
 **2. iOS**
 1. Open you project in XCode and create a new group with folder and add you icons there, see image below:
+
 ![iOS, Create New Group with Folder selection](images/Create_New_Group_with_Folder.png)
+
 2. Include alternate icons by selecting add files option, which supports Icon@2x.png format, see image below:
+
 ![iOS, Add files to you project selection](images/Add_files_to_you_project.png)
+
 3. Add default icon set to Images.xcassets folder, now project structure should be as the image below:
+
 ![iOS project structure](images/ios_project_structure.png)
+
 4. Now all you need to do is configure **Info.plist**, follow the example below, make sure you are setting the icon name **Exactly as the file name (without "@2x.png)**
 ```xml
+<key>CFBundleIcons</key>
+<dict>
+	<key>CFBundleAlternateIcons</key>
 	<dict>
-		<key>CFBundleIcons</key>
+		<key>AU</key>
 		<dict>
-			<key>CFBundleAlternateIcons</key>
-			<dict>
-				<key>AU</key>
-				<dict>
-					<key>CFBundleIconFiles</key>
-					<array>
-						<string>AU</string>
-					</array>
-				</dict>
-				<key>CA</key>
-				<dict>
-					<key>CFBundleIconFiles</key>
-					<array>
-						<string>CA</string>
-					</array>
-				</dict>
-				<key>UK</key>
-				<dict>
-					<key>CFBundleIconFiles</key>
-					<array>
-						<string>UK</string>
-					</array>
-				</dict>
-				<key>US</key>
-				<dict>
-					<key>CFBundleIconFiles</key>
-					<array>
-						<string>US</string>
-					</array>
-				</dict>
-			</dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AU</string>
+			</array>
 		</dict>
+		<key>CA</key>
+		<dict>
+		    <key>CFBundleIconFiles</key>
+			<array>
+				<string>CA</string>
+			</array>
+		</dict>
+		<key>UK</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>UK</string>
+			</array>
+		</dict>
+		<key>US</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>US</string>
+			</array>
+		</dict>
+	</dict>
+</dict>
 ```
 Now the **Info.plist** file should look as follows:
 ![info.plist structure](images/info_plist_structure.png)
