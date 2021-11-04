@@ -110,7 +110,9 @@ cd ios && pod install
 </manifest>
 ```
 The main point is to create <activity-alias> tags to make more alternate icons. While the tag name should be your applications initial Activity name suffixed by you icon definition name example: .MainActivityAU 
-NOTE: Default icon will have the initial Activity's name, example: .MainActivity
+**NOTE: Default icon will have the initial Activity's name, example: .MainActivity**
+
+
 ---
 **2. iOS**
 1. Open you project in XCode and create a new group with folder and add you icons there, see image below:
