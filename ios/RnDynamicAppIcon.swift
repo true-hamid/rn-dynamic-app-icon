@@ -19,6 +19,10 @@ class DynamicAppIcon: NSObject {
                 return
             }
             resolve(true)
+            if iconName == "" {
+                UIApplication.shared.setAlternateIconName(nil)
+                return
+            }
             UIApplication.shared.setAlternateIconName(iconName)
         }
 }

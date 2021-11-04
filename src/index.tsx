@@ -23,7 +23,12 @@ export async function changeIcon(
 ): Promise<number> {
   if (!packageName) packageName = 'null';
   try {
-    const changeIcon = await DynamicAppIcon.changeIcon(iconName, packageName);
+    let changeIcon
+    if(Platform.OS === 'android'){
+      changeIcon = await DynamicAppIcon.changeIcon(iconName, packageName);
+    } else {
+      changeIcon = await DynamicAppIcon.changeIcon(iconName); 
+    }
     return changeIcon;
   } catch (error) {
     throw error;
