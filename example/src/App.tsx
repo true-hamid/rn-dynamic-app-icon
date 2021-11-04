@@ -1,22 +1,93 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Image,
+} from 'react-native';
 import { changeIcon } from 'rn-dynamic-app-icon';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+type ItemProps = {
+  flag: images;
+  iconChangeParam: string;
+};
 
-  React.useEffect(() => {
-    
-    // multiply(3, 7).then(setResult);
-  }, []);
+type images = 'au' | 'ca' | 'uk' | 'us' | 'sd';
+type icons = 'AU' | 'CA' | 'UK' | 'US' | '';
+
+type ImagesMap = {
+  [key in images]: JSX.Element;
+};
+
+type dataObject = {
+  flag: images;
+  iconChangeParam: icons;
+};
+
+type dataType = Array<dataObject>;
+
+export default function App() {
+  const data: dataType = [
+    {
+      flag: 'au',
+      iconChangeParam: 'AU',
+    },
+    {
+      flag: 'ca',
+      iconChangeParam: 'CA',
+    },
+    {
+      flag: 'uk',
+      iconChangeParam: 'UK',
+    },
+    {
+      flag: 'us',
+      iconChangeParam: 'US',
+    },
+  ];
+
+  const renderFlagImage = (name: images) => {
+    const images: ImagesMap = {
+      au: <Image style={styles.image} source={require('./assets/au.png')} />,
+      ca: <Image style={styles.image} source={require('./assets/ca.png')} />,
+      uk: <Image style={styles.image} source={require('./assets/uk.png')} />,
+      us: <Image style={styles.image} source={require('./assets/us.png')} />,
+      sd: <Image style={styles.image} source={require('./assets/sd.png')} />,
+    };
+    return images[name];
+  };
+
+  const IconItem = ({ flag, iconChangeParam }: ItemProps) => {
+    return (
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          changeIcon(iconChangeParam);
+        }}
+      >
+        {renderFlagImage(flag)}
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
-      <TouchableOpacity onPress={() => {changeIcon('Islami')}}><Text>Islami</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => {changeIcon('Neo')}}><Text>Neo</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => {changeIcon('')}}><Text>Default</Text></TouchableOpacity>
+      <View style={styles.itemContainer}>
+        <Text style={styles.text}>Default</Text>
+        <IconItem flag="sd" iconChangeParam="" />
+      </View>
+      <FlatList
+        data={data}
+        numColumns={2}
+        scrollEnabled={false}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }: dataObject) => (
+          <IconItem flag={item.flag} iconChangeParam={item.iconChangeParam} />
+        )}
+      />
     </View>
   );
 }
@@ -24,12 +95,19 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    height: '100%',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  itemContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  text: {
+    fontWeight: '700',
   },
 });
