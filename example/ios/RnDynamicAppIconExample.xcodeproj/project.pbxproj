@@ -15,6 +15,14 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* RnDynamicAppIconExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RnDynamicAppIconExampleTests.m */; };
+		43C50C4A27344F39008756B3 /* UK@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4227344F39008756B3 /* UK@1x.png */; };
+		43C50C4B27344F39008756B3 /* AU@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4327344F39008756B3 /* AU@1x.png */; };
+		43C50C4C27344F39008756B3 /* US@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4427344F39008756B3 /* US@1x.png */; };
+		43C50C4D27344F39008756B3 /* AU@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4527344F39008756B3 /* AU@2x.png */; };
+		43C50C4E27344F39008756B3 /* UK@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4627344F39008756B3 /* UK@2x.png */; };
+		43C50C4F27344F39008756B3 /* US@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4727344F39008756B3 /* US@2x.png */; };
+		43C50C5027344F39008756B3 /* CA@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4827344F39008756B3 /* CA@2x.png */; };
+		43C50C5127344F39008756B3 /* CA@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C50C4927344F39008756B3 /* CA@1x.png */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		F7CB2CA744ABB277BB1BD546 /* libPods-RnDynamicAppIconExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AF3100EB58F8015A770113 /* libPods-RnDynamicAppIconExample.a */; };
 /* End PBXBuildFile section */
@@ -51,6 +59,14 @@
 		2D02E47B1E0B4A5D006451C7 /* RnDynamicAppIconExample-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RnDynamicAppIconExample-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* RnDynamicAppIconExample-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RnDynamicAppIconExample-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		328D725258DE326425CE2EC8 /* Pods-RnDynamicAppIconExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnDynamicAppIconExample.release.xcconfig"; path = "Target Support Files/Pods-RnDynamicAppIconExample/Pods-RnDynamicAppIconExample.release.xcconfig"; sourceTree = "<group>"; };
+		43C50C4227344F39008756B3 /* UK@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UK@1x.png"; path = "AlternateIcons/UK@1x.png"; sourceTree = "<group>"; };
+		43C50C4327344F39008756B3 /* AU@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AU@1x.png"; path = "AlternateIcons/AU@1x.png"; sourceTree = "<group>"; };
+		43C50C4427344F39008756B3 /* US@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "US@1x.png"; path = "AlternateIcons/US@1x.png"; sourceTree = "<group>"; };
+		43C50C4527344F39008756B3 /* AU@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AU@2x.png"; path = "AlternateIcons/AU@2x.png"; sourceTree = "<group>"; };
+		43C50C4627344F39008756B3 /* UK@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UK@2x.png"; path = "AlternateIcons/UK@2x.png"; sourceTree = "<group>"; };
+		43C50C4727344F39008756B3 /* US@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "US@2x.png"; path = "AlternateIcons/US@2x.png"; sourceTree = "<group>"; };
+		43C50C4827344F39008756B3 /* CA@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CA@2x.png"; path = "AlternateIcons/CA@2x.png"; sourceTree = "<group>"; };
+		43C50C4927344F39008756B3 /* CA@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CA@1x.png"; path = "AlternateIcons/CA@1x.png"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RnDynamicAppIconExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE26C0E39A379948D99238A2 /* Pods-RnDynamicAppIconExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnDynamicAppIconExample.debug.xcconfig"; path = "Target Support Files/Pods-RnDynamicAppIconExample/Pods-RnDynamicAppIconExample.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -110,6 +126,7 @@
 		13B07FAE1A68108700A75B9A /* RnDynamicAppIconExample */ = {
 			isa = PBXGroup;
 			children = (
+				43C50C3327344E66008756B3 /* AlternateIcons */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -129,6 +146,21 @@
 				26AF3100EB58F8015A770113 /* libPods-RnDynamicAppIconExample.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43C50C3327344E66008756B3 /* AlternateIcons */ = {
+			isa = PBXGroup;
+			children = (
+				43C50C4327344F39008756B3 /* AU@1x.png */,
+				43C50C4527344F39008756B3 /* AU@2x.png */,
+				43C50C4927344F39008756B3 /* CA@1x.png */,
+				43C50C4827344F39008756B3 /* CA@2x.png */,
+				43C50C4227344F39008756B3 /* UK@1x.png */,
+				43C50C4627344F39008756B3 /* UK@2x.png */,
+				43C50C4427344F39008756B3 /* US@1x.png */,
+				43C50C4727344F39008756B3 /* US@2x.png */,
+			);
+			name = AlternateIcons;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -170,7 +202,6 @@
 				CE26C0E39A379948D99238A2 /* Pods-RnDynamicAppIconExample.debug.xcconfig */,
 				328D725258DE326425CE2EC8 /* Pods-RnDynamicAppIconExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -313,8 +344,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43C50C4D27344F39008756B3 /* AU@2x.png in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				43C50C4C27344F39008756B3 /* US@1x.png in Resources */,
+				43C50C5027344F39008756B3 /* CA@2x.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				43C50C4A27344F39008756B3 /* UK@1x.png in Resources */,
+				43C50C4B27344F39008756B3 /* AU@1x.png in Resources */,
+				43C50C4F27344F39008756B3 /* US@2x.png in Resources */,
+				43C50C4E27344F39008756B3 /* UK@2x.png in Resources */,
+				43C50C5127344F39008756B3 /* CA@1x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
