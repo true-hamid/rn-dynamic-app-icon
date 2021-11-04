@@ -83,7 +83,9 @@ export default function App() {
         data={data}
         numColumns={2}
         scrollEnabled={false}
+        //@ts-ignore
         keyExtractor={(item, index) => index.toString()}
+        //@ts-ignore
         renderItem={({ item }: dataObject) => (
           <IconItem flag={item.flag} iconChangeParam={item.iconChangeParam} />
         )}
