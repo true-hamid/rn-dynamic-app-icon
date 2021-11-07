@@ -1,6 +1,6 @@
 {
   "name": "rn-dynamic-app-icon",
-  "version": "0.3.0",
+  "version": "0.4.3",
   "description": "Programmatically change the React Native app icon",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

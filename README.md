@@ -178,10 +178,20 @@ changeIcon('US');
 
 // Pass an empty string to enable default icon
 changeIcon('');
+
+// Android ONLY
+// Pass package name from js level incase you are having 
+// different packages on your app:
+// OR
+// For any reason, your initial activity is not MainActivity.
+
+const packageName = 'com.exampleapp.SplashActivity';
+changeIcon('US', packageName);
+
 ```
 
 
-#### Special thanks
+## Special thanks
 > To @skb1129 for his work on a similar project which inspired me to implement this package with a bit of enhancements on both android and ios
 
 > To freepik, since all of the icons used in this projects are made by https://www.freepik.com
