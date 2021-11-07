@@ -21,10 +21,10 @@ export async function changeIcon(
   iconName: string,
   packageName?: string
 ): Promise<number> {
-  if (!packageName) packageName = 'null';
   try {
     let changeIconNative;
     if (Platform.OS === 'android') {
+      if (!packageName) packageName = 'null';
       changeIconNative = await DynamicAppIcon.changeIcon(iconName, packageName);
     } else {
       changeIconNative = await DynamicAppIcon.changeIcon(iconName);
