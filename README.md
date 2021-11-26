@@ -9,6 +9,11 @@ Programmatically change the app icon in React Native for both android and iOS.
 - Config AndroidManifest.xml and Info.plist
 - ✨Magic ✨
 
+|![](https://cdn-icons-png.flaticon.com/32/731/731985.png) iOS |![Android/](https://cdn-icons-png.flaticon.com/32/226/226770.png) Android | 
+| :---        |    :----:   | 
+|![iOS App sample](images/ios_example.gif)|![Android App sample](images/android_example.gif)| 
+
+
 ## Installation
 1. Adding package
 

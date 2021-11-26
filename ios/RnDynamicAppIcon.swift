@@ -13,7 +13,7 @@ class DynamicAppIcon: NSObject {
                 reject("Error", "Alternate icon not supported", nil)
                 return
             }
-            let currentIcon = UIApplication.shared.alternateIconName
+            let currentIcon = UIApplication.shared.alternateIconName ?? ""
             if iconName == currentIcon {
                 reject("Error", "Icon already in use", nil)
                 return
