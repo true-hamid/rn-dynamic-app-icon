@@ -6,6 +6,11 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
+export type ChangeIconExtraParams = {
+  customPackageName?: string;
+  whenToKillOldClasses?: string;
+};
+
 const DynamicAppIcon = NativeModules.DynamicAppIcon
   ? NativeModules.DynamicAppIcon
   : new Proxy(
@@ -17,15 +22,29 @@ const DynamicAppIcon = NativeModules.DynamicAppIcon
       }
     );
 
+const { ON_ACTIVITY_PAUSED, ON_ACTIVITY_STOPPED, ON_ACTIVITY_DESTROYED } =
+  DynamicAppIcon.getConstants();
+
+const WhenToKillOldClasses = {
+  ON_ACTIVITY_PAUSED,
+  ON_ACTIVITY_STOPPED,
+  ON_ACTIVITY_DESTROYED,
+};
+
+export { WhenToKillOldClasses };
 export async function changeIcon(
   iconName: string,
-  packageName?: string
+  extraParams?: ChangeIconExtraParams
 ): Promise<number> {
   try {
     let changeIconNative;
     if (Platform.OS === 'android') {
-      if (!packageName) packageName = 'null';
-      changeIconNative = await DynamicAppIcon.changeIcon(iconName, packageName);
+      const { customPackageName = '', whenToKillOldClasses = '' } =
+        extraParams || { customPackageName: '', whenToKillOldClasses: '' };
+      changeIconNative = await DynamicAppIcon.changeIcon(iconName, {
+        customPackageName,
+        whenToKillOldClasses,
+      });
     } else {
       changeIconNative = await DynamicAppIcon.changeIcon(iconName);
     }
