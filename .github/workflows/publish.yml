@@ -20,6 +20,6 @@ jobs:
       - name: Package Build 🔧
         run: yarn prepare
       - name: Publish package on NPM 📦
-        run: yarn release
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DYN_APP_ICN_NPM_TOKEN }}
