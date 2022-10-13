@@ -1,12 +1,16 @@
 package com.rndynamicappicon;
 
+import static com.rndynamicappicon.constants.ON_ACTIVITY_DESTROYED;
+import static com.rndynamicappicon.constants.ON_ACTIVITY_PAUSED;
+import static com.rndynamicappicon.constants.ON_ACTIVITY_STOPPED;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,27 +19,29 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.module.annotations.ReactModule;
+import com.rndynamicappicon.model.ExtraParams;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @ReactModule(name = RnDynamicAppIconModule.NAME)
 public class RnDynamicAppIconModule extends ReactContextBaseJavaModule implements Application.ActivityLifecycleCallbacks {
   public static final String NAME = "DynamicAppIcon";
-  SharedPreferences sharedPref;
-  SharedPreferences.Editor editor;
-  public static final int KILL_ACTIVITY = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-  public static final int CREATE_ACTIVITY = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
   ReactApplicationContext reactContext;
-  String oldIcon = "";
-  String activityName = "";
+  String currentActiveClass = "";
+  ArrayList<String> classesToKill = new ArrayList<>();
+  Map<String, Object> constants = new HashMap<>();
+  ExtraParams extraParams = new ExtraParams(ON_ACTIVITY_PAUSED);
+  Boolean debugEnabled = true;
 
 
   public RnDynamicAppIconModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    sharedPref = reactContext.getSharedPreferences(NAME, Context.MODE_PRIVATE);
   }
 
   @Override
@@ -44,60 +50,97 @@ public class RnDynamicAppIconModule extends ReactContextBaseJavaModule implement
     return NAME;
   }
 
+  @Override
+  public Map<String, Object> getConstants() {
+    constants.put(ON_ACTIVITY_PAUSED, ON_ACTIVITY_PAUSED);
+    constants.put(ON_ACTIVITY_STOPPED, ON_ACTIVITY_STOPPED);
+    constants.put(ON_ACTIVITY_DESTROYED, ON_ACTIVITY_DESTROYED);
+    return constants;
+  }
+
+  private void debugLogger(String msg) {
+    if (debugEnabled) Log.d("DYNAMIC_APP_ICON", msg);
+  }
+
 
   @ReactMethod
-  public void changeIcon(String iconName, String activityName, final Promise promise) {
-    editor = sharedPref.edit();
-    this.activityName = activityName;
-    this.oldIcon = getClassFromStorage();
+  public void changeIcon(String iconName, ReadableMap extraParamsMap, final Promise promise) {
+    try {
+      extraParamsSetup(extraParamsMap);
+      String newActiveClass = getDefaultActivityName(extraParams.getCustomPackageName()) + iconName;
+      currentActiveClass = currentActiveClass.isEmpty() ? getLauncherActivityName() : currentActiveClass;
 
-    if (oldIcon.equals(iconName)) {
-      promise.reject("Error", "Icon is already selected");
-      return;
+      debugLogger(currentActiveClass + " VS " + newActiveClass);
+
+      EnableNewIcon(newActiveClass, promise);
+    } catch (Exception e) {
+      promise.reject("DYNAMIC_APP_ICON_ERR", e.getMessage());
     }
-    EnableNewIcon(iconName, promise);
+  }
+
+  private void extraParamsSetup(ReadableMap extraParamsMap) {
+    extraParams.setWhenToKillOldClasses(extraParamsMap.getString(extraParams.getWhenToKillOldClassesKeyName()));
+    extraParams.setCustomPackageName(extraParamsMap.getString(extraParams.getCustomPackageNameKeyName()));
   }
 
   private void EnableNewIcon(String name, Promise promise) {
-    IconSwitchHandler(CREATE_ACTIVITY, name);
+    debugLogger(extraParams.getWhenToKillOldClasses());
+    assert getCurrentActivity() != null;
+    getCurrentActivity().getApplication().registerActivityLifecycleCallbacks(this);
+    IconSwitchHandler(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, name);
+    classesToKill.add(currentActiveClass);
+    currentActiveClass = name;
     promise.resolve(true);
-    saveClassToStorage(name);
-    Objects.requireNonNull(this.getCurrentActivity()).getApplication().registerActivityLifecycleCallbacks(this);
   }
 
   private void IconSwitchHandler(int switchFlag, String className) {
     PackageManager manager = reactContext.getPackageManager();
-    manager.setComponentEnabledSetting(new ComponentName(reactContext, getActivityName() + className)
+    manager.setComponentEnabledSetting(new ComponentName(reactContext, className)
       , switchFlag, PackageManager.DONT_KILL_APP);
   }
 
-  private String getActivityName() {
-    if (activityName == null || activityName.equals("null") || activityName.equals("")) {
-      return reactContext.getPackageName() + ".MainActivity";
-    } else {
-      return activityName;
+  private String getDefaultActivityName(String activityName) {
+    if (activityName == null || activityName.isEmpty() || activityName.equals("null")) {
+      final Activity activity = getCurrentActivity();
+      assert activity != null;
+      return activity.getPackageName() + ".MainActivity";
     }
+    return activityName;
   }
 
-  private void saveClassToStorage(String value) {
-    editor.putString(NAME, value).commit();
+  private String getLauncherActivityName() {
+    PackageManager packageManager = reactContext.getPackageManager();
+    Intent intent = packageManager.getLaunchIntentForPackage(reactContext.getPackageName());
+    ComponentName componentName = intent.getComponent();
+    return componentName.getClassName();
   }
 
-  private String getClassFromStorage() {
-    return sharedPref.getString(NAME, "");
+  private void killOldClasses() {
+    for (String classToKill : classesToKill) {
+      IconSwitchHandler(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, classToKill);
+    }
+    classesToKill.clear();
   }
 
   @Override
   public void onActivityPaused(@NonNull Activity activity) {
-    IconSwitchHandler(KILL_ACTIVITY, oldIcon);
+    if (extraParams.getWhenToKillOldClasses().equals(ON_ACTIVITY_PAUSED)) {
+      killOldClasses();
+    }
   }
 
   @Override
   public void onActivityStopped(@NonNull Activity activity) {
+    if (extraParams.getWhenToKillOldClasses().equals(ON_ACTIVITY_STOPPED)) {
+      killOldClasses();
+    }
   }
 
   @Override
   public void onActivityDestroyed(@NonNull Activity activity) {
+    if (extraParams.getWhenToKillOldClasses().equals(ON_ACTIVITY_DESTROYED)) {
+      killOldClasses();
+    }
   }
 
   @Override
