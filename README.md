@@ -174,9 +174,10 @@ Now the **Info.plist** file should look as follows:
 
 ## Usage
 ```js
-import { changeIcon } from "rn-dynamic-app-icon";
-
-// ...
+import {
+    changeIcon, 
+    WhenToKillOldClasses, //Optional: import this only if you need it
+} from 'rn-dynamic-app-icon';
 
 // Pass the name of icon to be enabled
 changeIcon('US');
@@ -184,15 +185,19 @@ changeIcon('US');
 // Pass an empty string to enable default icon
 changeIcon('');
 
-// Android ONLY
-// Pass package name from js level incase you are having 
-// different packages on your app:
-// OR
-// For any reason, your initial activity is not MainActivity.
-
-const packageName = 'com.exampleapp.SplashActivity';
-changeIcon('US', packageName);
-
+// Android ONLY (OPTIONAL)
+// extraParams object to customize the icon change behavior
+//  1. customPackage
+// Usage: to pass a custom launcher activity name: 
+changeIcon('AU', {customPackageName: activityName});
+//  2. whenToKillOldClasses
+// Usage: define when to kill old icon class
+/**  Available options:
+    - WhenToKillOldClasses.ON_ACTIVITY_PAUSED (Default)
+    - WhenToKillOldClasses.ON_ACTIVITY_STOPPED
+    - WhenToKillOldClasses.ON_ACTIVITY_DESTROYED
+*/
+changeIcon('UK', {whenToKillOldClasses: WhenToKillOldClasses.ON_ACTIVITY_DESTROYED});
 ```
 
 
