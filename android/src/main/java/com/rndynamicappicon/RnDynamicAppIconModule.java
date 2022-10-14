@@ -36,7 +36,7 @@ public class RnDynamicAppIconModule extends ReactContextBaseJavaModule implement
   ArrayList<String> classesToKill = new ArrayList<>();
   Map<String, Object> constants = new HashMap<>();
   ExtraParams extraParams = new ExtraParams(ON_ACTIVITY_PAUSED);
-  Boolean debugEnabled = true;
+  Boolean debugEnabled = false;
 
 
   public RnDynamicAppIconModule(ReactApplicationContext reactContext) {
@@ -71,10 +71,14 @@ public class RnDynamicAppIconModule extends ReactContextBaseJavaModule implement
       currentActiveClass = currentActiveClass.isEmpty() ? getLauncherActivityName() : currentActiveClass;
 
       debugLogger(currentActiveClass + " VS " + newActiveClass);
+      if(currentActiveClass.equals(newActiveClass)){
+        promise.reject("DYNAMIC_APP_ICON_ERR_002", "Icon is already selected");
+        return;
+      }
 
       EnableNewIcon(newActiveClass, promise);
     } catch (Exception e) {
-      promise.reject("DYNAMIC_APP_ICON_ERR", e.getMessage());
+      promise.reject("DYNAMIC_APP_ICON_ERR_001", e.getMessage());
     }
   }
 
